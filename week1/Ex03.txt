@@ -1,0 +1,6 @@
+a)  when x == y, x - y = 0
+b)  nothing changes x from its initialised value, thus the program will end with x being that value
+c)  as x is always a multiple of 2, its remainder (with 2) will always be 0
+d)  x is not altered by the program
+e)  the program increments x by a factor of 1, with an input of 3, the program will always output 4
+f)  edge case x == 99, 99 + 1 <= 100
