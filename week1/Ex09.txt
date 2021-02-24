@@ -1,0 +1,6 @@
+{true} var x; x := x * x {x >= 0}
+{true} var x; {x * x >= 0} x := x * x; {x >= 0}
+{forall x :: x * x >= 0} var x; x := x * x; {x >= 0}
+
+
+forall x :: x * x >= 0 ==> x >= 0

@@ -1,0 +1,2 @@
+cannot assert that y == 6 on second line.
+can only strengthen going backwards, not forwards.
