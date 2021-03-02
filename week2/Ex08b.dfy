@@ -13,7 +13,3 @@ method Triple(x: int) returns (r: int)
 method Double(x: int) returns (r: int)
     requires x >= 0
     ensures r == 2 * x
-{
-    var y := 2 * x;
-    r := y;
-}
