@@ -1,0 +1,2 @@
+a)  holds
+b)  does not hold, returns 3 * abs(x)

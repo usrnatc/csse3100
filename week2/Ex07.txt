@@ -1,0 +1,29 @@
+{true}
+{false || x % 2 != 0 || x % 2 == 0 || true}
+{(x % 2 != 0 && x % 2 == 0) || (x % 2 != 0 && true) || (true && x % 2 == 0) || true}
+{(x % 2 != 0 || true) && (x % 2 == 0 || true)}
+{x % 2 == 0 ==> true && x % 2 != 0 ==> true}
+if x % 2 == 0 {
+    {true}
+    y := y + 3;
+    {true}
+} else {
+    {true}
+    y := 4;
+    {true}
+}
+{true}
+{(y >= 10 && y < 10) || true || (x < 10 && y < 10) || true}
+{(y >= 10 || x < 10) && {y < 10 || true}}
+{y < 10 ==> x < 10 && y >= 10 ==> true}
+if y < 10 {
+    {x < 10}
+    y := x + y;
+    {x < 10}
+} else {
+    {true}
+    {8 < 10}
+    x := 8;
+    {x < 10}
+}
+{x < 10}

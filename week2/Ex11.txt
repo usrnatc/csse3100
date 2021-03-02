@@ -1,0 +1,19 @@
+a)
+    assert y + z != 0;
+    x / (y + z);
+
+b)
+    assert 2 * i < a.length;
+    a[2 * i];
+
+c)
+    assert y > 1;
+    MinusOne(MinusOne(y))
+
+d)
+    assert b != 0 && d != 0;
+    a / b < c / d;
+
+e)
+    assert b != 0 && a < 10 * b && d != 0 && c < 100 * d;
+    a / b < 10 && c / d < 100;

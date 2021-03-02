@@ -1,0 +1,30 @@
+{x != 5 && x < 8}
+{false || false || x != 5 && x < 8 || false}
+{(x >= 8 && x < 8) || (x >= 8 && false) || (x != 5 && x < 8) || (x != 5 && false)}
+{(x >= 8 || x != 5) && (x < 8 || false)}
+{x < 8 ==> x != 5 && x >= 8 ==> true}
+if x < 8 {
+    {x != 5}
+    {false || x != 5 || false || false}
+    {(x != 5 && x == 5) || (x != 5 && true) || (false && x == 5) || (false && true)}
+    {(x != 5 || false) && (x == 5 || true)}
+    {x == 5 ==> false && x != 5 ==> true}
+    if x == 5 {
+        {false}
+        {10 < 10}
+        y := 10;
+        {y < 10}
+    } else {
+        {true}
+        {2 < 10}
+        y := 2;
+        {y < 10}
+    }
+    {y < 10}
+} else {
+    {true}
+    {0 < 10}
+    y := 0;
+    {y < 10}
+}
+{ y < 10}
