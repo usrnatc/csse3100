@@ -1,0 +1,41 @@
+method GCD1(a: int, b: int) returns (r: int)
+    ensures r == gcd(a, b)
+{
+    if a < b {
+        r := GCD1(b, a);
+    } else if (a % b == 0) {
+        r := b;
+    } else {
+        r := GCD1(b, a % b);
+        {r == gcd(a, b)}
+    }
+    {r == gcd(a, b)}
+}
+{r == gcd(a, b)}
+
+
+
+
+
+
+method GCD2(a: int, b: int) returns (r: int)
+    ensures r == gcd(a, b)
+{
+    {b != 0 || a == gcd(a, b)}
+    {(b == 0 ==> a == gcd(a, b))}
+    {(b == 0 ==> a == gcd(a, b)) && true}
+    {(b == 0 ==> a == gcd(a, b)) && (b > 0 ==> true)}
+    if b == 0 {
+        {a == gcd(a, b)}
+        r := a;
+        {r == gcd(a, b)}
+    } else {
+        {true}      (used rule b > 0 ==> gcd(a, b) == gcd(b, a % b))
+        {gcd(b, a % b) == gcd(a, b)}
+        {true && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
+        r := GCD2(b, a % b);
+        {r == gcd(a, b)}
+    }
+    {r == gcd(a, b)}
+}
+{r == gcd(a, b)}
