@@ -1,0 +1,29 @@
+method Multi(x: int, y: int) returns (r: int)
+    requires 0 <= x && 0 <= y
+    ensures r == x * y
+{
+    // MOST DEFINITELY WRONG
+    {0 <= x && 0 <= y}
+    {x != 0 || 0 == x * y}
+    {(x != 0 || 0 == x * y) && true}
+    {(x == 0 ==> 0 == x * y) && (x != 0 ==> true)}
+    if x == 0 {
+        {0 == x * y}
+        r := 0;
+        {r == x * y}
+    } else {
+        {true}
+        {forall z :: 1 <= x && 0 <= y}
+        var z;
+        {1 <= x && 0 <= y}
+        {(1 <= x && 0 <= y) && true}
+        {(1 <= x && 0 <= y) && x - 1 * y + y == x * y}
+        {(1 <= x && 0 <= y) && forall z' :: z' == x - 1 * y ==> z' + y == x * y}
+        z := Multi(x - 1, y);
+        {z + y == x * y}
+        r := z + y;
+        {r == x * y}
+    }
+    {r == x * y}
+}
+{r == x * y}
