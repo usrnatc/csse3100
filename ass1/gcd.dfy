@@ -1,4 +1,6 @@
 method GCD1(a: int, b: int) returns (r: int)
+    requires a > 0 && b > 0
+    decreases a % b
 {
     if a < b {
         r := GCD1(b, a);
