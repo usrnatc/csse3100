@@ -1,6 +1,6 @@
 method GCD1(a: int, b: int) returns (r: int)
     decreases a % b
-    requires a > 0 && b > 0
+    requires a > 0 && b > 0 && a != b
     // ensures r == gcd(a, b)
 {
     if a < b {
@@ -12,8 +12,8 @@ method GCD1(a: int, b: int) returns (r: int)
     }
 }
 
+/*
 method GCD2(a: int, b: int) returns (r: int)
-    decreases b
 {
     if b == 0 {
         r := a;
@@ -21,3 +21,4 @@ method GCD2(a: int, b: int) returns (r: int)
         r := GCD2(b, a % b);
     }
 }
+*/

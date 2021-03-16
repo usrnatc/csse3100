@@ -2,14 +2,19 @@ method GCD1(a: int, b: int) returns (r: int)
     requires a > 0 && b > 0
     ensures r == gcd(a, b)
 {
-    {a != b || b == gcd(a, b)}
-    {a % b != 0 || b == gcd(a, b)}
-    {true && (a % b != 0 || b == gcd(a, b)) && true}
-    {(a < b) ==> true && (a % b == 0) ==> b == gcd(a, b) && (a > b && a % b != 0) ==> true}
+    {a > 0 && b > 0 && a != b}
+    {(0 < a < b) || (0 < b < a)}
+    {(0 < a < b) || false || false || 0 < b < a || false}
+    {(0 < a < b) || (0 < a < b && b == gcd(a, b)) || false || 0 < b < a || (b == gcd(a, b) && 0 < b < a)}   
+    {(0 < a < b && a % b != 0) || (0 < a < b && b == gcd(a, b)) || (0 < a < b && 0 < b < a) || (a % b != 0 && 0 < b < a) || (b == gcd(a, b) && 0 < b < a)}
+    {(0 < a < b) && (a % b != 0 || b == gcd(a, b)) && (0 < b < a)}
+    {(a > b || b > 0 && a > 0) && true && a < b || a % b == 0 || (b > 0 && a % b > 0)}
+    {(a < b ==> b > 0 && a > 0) && (a % b == 0 ==> b == gcd(a, b)) && ((a > b && a % b != 0) ==> b > 0 && a % b > 0)}
     if a < b {
-        {true}      (used rule)
-        {gcd(a, b) == gcd(b, a)}
-        {true && forall r' :: r' == gcd(b, a) ==> r' == gcd(a, b)}
+        {b > o && a > 0}
+        {b > o && a > 0 && true}
+        {b > o && a > 0 && gcd(b, a) == gcd(a, b)}
+        {b > 0 && a > 0 && forall r' :: r' == gcd(b, a) ==> r' == gcd(a, b)}
         r := GCD1(b, a);
         {r == gcd(a, b)}
     } else if (a % b == 0) {
@@ -17,8 +22,10 @@ method GCD1(a: int, b: int) returns (r: int)
         r := b;
         {r == gcd(a, b)}
     } else {
-        {true}      (used rule b > 0 ==> gcd(a, b) == gcd(b, a % b))
-        {gcd(b, a % b) == gcd(a, b)}
+        {b > o && a % b > 0}
+        {b > o && a % b > 0 && true}
+        {b > o && a % b > 0 && gcd(b, a % b) == gcd(a, b)}
+        {b > 0 && a % b > 0 && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
         {true && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
         r := GCD1(b, a % b);
         {r == gcd(a, b)}
@@ -35,16 +42,15 @@ method GCD1(a: int, b: int) returns (r: int)
 method GCD2(a: int, b: int) returns (r: int)
     ensures r == gcd(a, b)
 {
-    {b != 0 || a == gcd(a, b)}
-    {(b == 0 ==> a == gcd(a, b))}
-    {(b == 0 ==> a == gcd(a, b)) && true}
-    {(b == 0 ==> a == gcd(a, b)) && (b > 0 ==> true)}
+    {true}
+    {true && true}                                  (used rule i and tautology condition)
+    {b == 0 ==> a == gcd(a, b) && b != 0 ==> true}
     if b == 0 {
         {a == gcd(a, b)}
         r := a;
         {r == gcd(a, b)}
     } else {
-        {true}      (used rule b > 0 ==> gcd(a, b) == gcd(b, a % b))
+        {true}
         {gcd(b, a % b) == gcd(a, b)}
         {true && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
         r := GCD2(b, a % b);
