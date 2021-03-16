@@ -12,13 +12,14 @@ method GCD1(a: int, b: int) returns (r: int)
     }
 }
 
-/*
+
 method GCD2(a: int, b: int) returns (r: int)
+    // TODO: get termination metric
+    requires a >= 0 && b >= 0
 {
     if b == 0 {
         r := a;
     } else {
-        r := GCD2(b, a % b);
+        //r := GCD2(b, a % b);
     }
 }
-*/
