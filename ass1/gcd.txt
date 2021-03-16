@@ -41,8 +41,11 @@ method GCD1(a: int, b: int) returns (r: int)
 
 
 method GCD2(a: int, b: int) returns (r: int)
+    requires a >= 0 && b >= 0
     ensures r == gcd(a, b)
+    decreases b + 1
 {
+    {a >= 0 && b >= 0}                              (from gcd rules assumption)
     {true}
     {true && true}                                  (used rule i and tautology condition)
     {b == 0 ==> a == gcd(a, b) && b != 0 ==> true}
