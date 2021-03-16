@@ -1,6 +1,7 @@
 method GCD1(a: int, b: int) returns (r: int)
     requires a > 0 && b > 0
     ensures r == gcd(a, b)
+    decreases a % b
 {
     {a > 0 && b > 0 && a != b}
     {(0 < a < b) || (0 < b < a)}
