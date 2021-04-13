@@ -1,5 +1,5 @@
 method GCD1(a: int, b: int) returns (r: int)
-    requires a > 0 && b > 0
+    requires a > 0 && b > 0 && a != b
     ensures r == gcd(a, b)
     decreases a % b
 {
@@ -12,9 +12,9 @@ method GCD1(a: int, b: int) returns (r: int)
     {(a > b || b > 0 && a > 0) && true && a < b || a % b == 0 || (b > 0 && a % b > 0)}
     {(a < b ==> b > 0 && a > 0) && (a % b == 0 ==> b == gcd(a, b)) && ((a > b && a % b != 0) ==> b > 0 && a % b > 0)}
     if a < b {
-        {b > o && a > 0}
-        {b > o && a > 0 && true}
-        {b > o && a > 0 && gcd(b, a) == gcd(a, b)}
+        {b > 0 && a > 0}
+        {b > 0 && a > 0 && true}
+        {b > 0 && a > 0 && gcd(b, a) == gcd(a, b)}
         {b > 0 && a > 0 && forall r' :: r' == gcd(b, a) ==> r' == gcd(a, b)}
         r := GCD1(b, a);
         {r == gcd(a, b)}
@@ -23,9 +23,9 @@ method GCD1(a: int, b: int) returns (r: int)
         r := b;
         {r == gcd(a, b)}
     } else {
-        {b > o && a % b > 0}
-        {b > o && a % b > 0 && true}
-        {b > o && a % b > 0 && gcd(b, a % b) == gcd(a, b)}
+        {b > 0 && a % b > 0}
+        {b > 0 && a % b > 0 && true}
+        {b > 0 && a % b > 0 && gcd(b, a % b) == gcd(a, b)}
         {b > 0 && a % b > 0 && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
         {true && forall r' :: r' == gcd(b, a % b) ==> r' == gcd(a, b)}
         r := GCD1(b, a % b);
@@ -34,6 +34,9 @@ method GCD1(a: int, b: int) returns (r: int)
     {r == gcd(a, b)}
 }
 {r == gcd(a, b)}
+
+
+
 
 
 
