@@ -1,0 +1,68 @@
+a)
+    x := 0;
+    while x != 100
+        invariant true
+    assert x == 100
+
+    Invariant true on entry: true
+    Assertion true: true
+
+b)
+    x := 20;
+    while 10 < x
+        invariant x % 2 == 0
+    assert x == 10
+
+    Invariant true on entry: true
+    Assertion true: false
+
+c)
+    x := 20
+    while x < 20
+        invariant x % 2 == 0
+    assert x % 2 == 0
+
+    Invariant true on entry: true
+    Assertion true: false
+
+d)
+    x := 3;
+    while x < 2
+        invariant x % 2 == 0
+    assert x % 2 == 0;
+
+    Invariant true on entry: false
+    Assertion true: true
+
+e)
+    if 50 < x < 100 {
+        while x < 85
+            invariant x % 2 == 0
+        assert < 85 && x % 2 == 1;
+    }
+
+    Invariant true on entry: false
+    Assertion true: false
+
+f)
+    if x >= 0 {
+        while x % 2 == 0
+            invariant x < 100
+        assert 0 <= x;
+    }
+
+    Invariant true on entry: false
+    Assertion true: false
+
+g)
+    x := 0;
+    while x < 100
+        invariant 0 <= x < 100
+    assert x == 25;
+
+    Invariant true on entry: true
+    Assertion true: true. 
+    
+    In this case, the loop never exits since the invariant states that x < 100. If
+    we conjoin the invariant with the negation of the guard, x >= 100, we get false, and since
+    false ==> x ==25, the assertion holds. 

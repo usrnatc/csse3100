@@ -1,0 +1,8 @@
+a)
+    i := 0;
+    while i < 100
+        invariant 0 <= i <= 100
+    assert i == 100;
+
+b)
+    
