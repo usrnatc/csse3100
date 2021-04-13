@@ -7,6 +7,7 @@ method ComputeFusc(N: int) returns (b: int)
     while (n != 0)
         invariant fusc(N) == a * fusc(n) + b * fusc(n + 1)
     {
+        
         {(n % 2 == 1 && fusc(N) == a * fusc((n - 1)/2) + (b + a) * fusc((n - 1)/2 + 1)) || (fusc(N) == (a + b) * fusc(n / 2) + b * fusc((n / 2) + 1) && n % 2 == 0)}
         {(n % 2 == 1 && fusc(N) == a * fusc(n/2 - 1/2) + (b + a) * fusc(n/2 - 1/2 + 1)) || (fusc(N) == (a + b) * fusc(n / 2) + b * fusc((n / 2) + 1) && n % 2 == 0)}
         {false || (n % 2 == 1 && fusc(N) == a * fusc(n/2 - 1/2) + (b + a) * fusc(n/2 - 1/2 + 1)) || (fusc(N) == (a + b) * fusc(n / 2) + b * fusc((n / 2) + 1) && n % 2 == 0) || false}
