@@ -19,13 +19,11 @@ method ComputeFusc(N: int) returns (b: int)
 
 method ComputePos(num: int, den: int) returns (n: int)
     requires num > 0 && den > 0
-    ensures n > 0
-    ensures num == fusc(n) && den == fusc(n + 1)
+    ensures n > 0 && num == fusc(n) && den == fusc(n + 1)
 {
-    
-    while (den != fusc(n + 1))
-        invariant num == fusc(n)
+    while ()
+        invariant 
     {
-        
+
     }
 }
