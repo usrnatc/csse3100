@@ -22,7 +22,8 @@ method ComputePos(num: int, den: int) returns (n: int)
     ensures n > 0 && num == fusc(n) && den == fusc(n + 1)
 {
     while ()
-        invariant 
+        invariant
+        decreases
     {
 
     }
