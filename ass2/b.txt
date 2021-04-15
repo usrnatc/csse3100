@@ -1,22 +1,3 @@
-method ComputeFusc(N: int) returns (b: int)
-    requires N >= 0
-    ensures b == fusc(N)
-{
-    b := 0;
-    var n, a := N, 1;
-    while (n != 0)
-        invariant fusc(N) == a * fusc(n) + b * fusc(n + 1)
-    {
-        if (n % 2 == 0) {
-            a := a + b;
-            n := n / 2;
-        } else {
-            b := b + a;
-            n := (n - 1) / 2;
-        }
-    }
-}
-
 method ComputePos(num: int, den: int) returns (n: int)
     requires num > 0 && den > 0
     ensures n > 0 && num == fusc(n) && den == fusc(n + 1)
@@ -43,7 +24,7 @@ method ComputePos(num: int, den: int) returns (n: int)
         invariant n > 0 && x == fusc(n) && y == fusc(n + 1)
         decreases -n
     {
-        {n > 0 && x == fusc(n) && y == fusc(n + 1)}        --  strengthen
+        {n > 0 && x == fusc(n) && y == fusc(n + 1)}        --  strengthen with invariants
         {n > 0}
         {(n + 1) >= 0}
         n := n + 1;
