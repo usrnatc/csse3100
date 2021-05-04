@@ -1,4 +1,7 @@
-function method Average(a: int, b: int): int {(a + b) / 2}
+function method Average(a: int, b: int): int 
+{
+    (a + b) / 2
+}
 
 method Triple(x: int) returns (r: int)
     ensures r == 3 * x

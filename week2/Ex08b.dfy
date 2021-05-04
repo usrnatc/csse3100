@@ -6,7 +6,7 @@ method Triple(x: int) returns (r: int)
         r := x + y;
     } else {
         var y := Double(-x);
-        r := x + y; // Should be r := x - y; for this program to hold
+        r := x - y;
     }
 }
 
