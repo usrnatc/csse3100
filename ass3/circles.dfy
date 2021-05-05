@@ -1,20 +1,24 @@
-lemma IncreasingArray(a: array<int>, n: int)
-    requires forall i :: 1 <= i < a.Length ==> a[i-1] < a[i]
-    requires 0 <= n < a.Length
-    ensures forall i :: n < i < a.Length ==> a[n] < a[i]
-    decreases a.Length - n;
-{
-    if n == a.Length - 1 {
-
-    }
-    else {
-    IncreasingArray(a, n + 1);
-    }
-}
-
 method Tangent(r: array<int>, x: array<int>) returns (b: bool)
-    requires true
-    ensures true
+    requires r.Length != 0 && x.Length != 0
+    ensures b ==> exists i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] == x[j] || r[i] == x[j])
 {
-
+    var m, tempB := 0, false;
+    while m < r.Length && !tempB
+        invariant m <= r.Length
+        decreases r.Length - m
+    {
+        var n := 0;
+        while n < x.Length && !tempB
+            invariant tempB ==> exists i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] == x[j] || r[i] == x[j])
+            decreases x.Length - n, !tempB
+        {
+            if (-r[m] == x[n] || r[m] == x[n]) {
+                tempB := true;
+            } else {
+                n := n + 1;
+            }
+        }
+        m := m + 1;
+    }
+    b := tempB;
 }
