@@ -1,6 +1,6 @@
 method Tangent(r: array<int>, x: array<int>) returns (b: bool)
     requires x.Length > 0 && r.Length > 0
-    requires forall i, j :: 0 <= i <= j < x.Length ==> x[i] <= x[j]
+    requires forall i, j :: 0 <= i <= j < x.Length ==> x[i] <= x[j] // values in x need to be in ascending order
     ensures !b ==> forall i, j :: 0 <= i< r.Length && 0 <= j < x.Length ==> (-r[i] != x[j] && r[i] != x[j])
     ensures b ==> exists i, j :: 0 <= i< r.Length && 0 <= j < x.Length && (-r[i] == x[j] || r[i] == x[j])
 {
