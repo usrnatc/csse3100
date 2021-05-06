@@ -1,26 +1,41 @@
 method Tangent(r: array<int>, x: array<int>) returns (b: bool)
-    requires r.Length != 0 && x.Length != 0
-    ensures (b ==> exists i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] == x[j] || r[i] == x[j])) || (!b ==> forall i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] != x[j] && r[i] != x[j]))
+    requires x.Length > 0 && r.Length > 0
+    requires forall i, j :: 0 <= i <= j < x.Length ==> x[i] <= x[j]
+    ensures !b ==> forall i, j :: 0 <= i< r.Length && 0 <= j < x.Length ==> (-r[i] != x[j] && r[i] != x[j])
+    ensures b ==> exists i, j :: 0 <= i< r.Length && 0 <= j < x.Length && (-r[i] == x[j] || r[i] == x[j])
 {
-    var m, n , tempB := 0, 0, false;
-    
-    while m < r.Length && !tempB
-        invariant 0 <= m <= r.Length
-        invariant tempB ==> exists i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] == x[j] || r[i] == x[j])
-        decreases r.Length - m
+    var tempB, tangentMissing, k, l := false, false, 0, 0;
+    while k != r.Length && !tempB
+        invariant 0 <= k <= r.Length
+        invariant tempB ==> exists i, j :: 0 <= i < r.Length && 0 <= j < x.Length && (-r[i] == x[j] || r[i] == x[j])
+        invariant !tempB ==> forall i, j :: (0 <= i<k && 0 <= j < x.Length) ==> (-r[i] != x[j] && r[i] != x[j])
+        decreases r.Length - k
     {
-        n := 0;
-        while n < x.Length && !tempB
-            invariant 0 <= n <= x.Length
-            invariant tempB ==> exists i, j :: (0 <= i < r.Length && 0 <= j < x.Length) && (-r[i] == x[j] || r[i] == x[j])
-            decreases x.Length - n, !tempB
+        l:= 0;
+        var tangentMissing := false;
+        while l != x.Length && !tangentMissing
+            invariant 0 <= l <= x.Length
+            invariant tempB ==> exists i, j :: 0 <= i < r.Length && 0 <= j < x.Length && (-r[i] == x[j] || r[i] == x[j])
+            invariant !tempB ==> forall i :: 0 <= i< l ==> (-r[k] != x[i] && r[k] != x[i])
+            invariant tangentMissing ==> forall i :: (l <= i < x.Length) ==> (-r[k] != x[i] && r[k] != x[i])
+            decreases x.Length - l, !tempB
         {
-            if (-r[m] == x[n] || r[m] == x[n]) {
+
+            if ((-r[k] == x[l] || r[k] == x[l])) {
                 tempB := true;
             }
-            n := n + 1;
+            if (r[k] > 0) {
+                if (r[k] < x[l]){
+                    tangentMissing := true;
+                }
+            } else {
+                if (-r[k] < x[l]){
+                    tangentMissing := true;
+                }
+            }
+            l := l + 1;
         }
-        m := m + 1;
+        k := k + 1;
     }
     b := tempB;
 }
