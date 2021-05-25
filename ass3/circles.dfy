@@ -12,7 +12,7 @@ method Tangent(r: array<int>, x: array<int>) returns (b: bool)
         decreases r.Length - k
     {
         l:= 0;
-        var tangentMissing := false;
+        tangentMissing := false;
         while l != x.Length && !tangentMissing
             invariant 0 <= l <= x.Length
             invariant tempB ==> exists i, j :: 0 <= i < r.Length && 0 <= j < x.Length && r[i] == x[j]
